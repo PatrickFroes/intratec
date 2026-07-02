@@ -1,0 +1,29 @@
+sudo docker ps<odoo>
+    <template id="five9_iframe_template" name="Five9 Iframe">
+        <t t-call="website.layout">
+            <div class="container mt32 mb32">
+                <h2>Five9 Softphone</h2>
+                <div id="five9-iframe-container"></div>
+                <script type="text/javascript">
+                (function() {
+                    if (!window.__five9IframeLoaded) {
+                        var container = document.getElementById('five9-iframe-container');
+                        var iframe = document.createElement('iframe');
+                        iframe.src = "[[ five9_url ]]";
+                        iframe.width = "360";
+                        iframe.height = "600";
+                        iframe.allow = "microphone; autoplay; camera; geolocation; display-capture";
+                        iframe.sandbox = "allow-same-origin allow-scripts allow-forms allow-popups allow-modals allow-popups-to-escape-sandbox";
+                        iframe.style = "border:1px solid #ccc; border-radius:12px;";
+                        container.appendChild(iframe);
+                        window.__five9IframeLoaded = true;
+                    } else {
+                        var container = document.getElementById('five9-iframe-container');
+                        container.innerHTML = '<div style="color:red; font-weight:bold; padding:16px;">O Softphone já está aberto nesta página.</div>';
+                    }
+                })();
+                </script>
+            </div>
+        </t>
+    </template>
+</odoo>

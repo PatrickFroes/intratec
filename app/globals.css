@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 241, 245, 249;
+  /* Safe Area Variables for App */
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Disable blue highlight on tap for mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+  background: linear-gradient(to bottom right, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)));
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* App-like behavior */
+  overscroll-behavior-y: none;
+  user-select: none; /* Optional: prevents text selection like an app */
+}
+
+/* Re-enable text selection for inputs and content areas that need it */
+input, textarea, p, h1, h2, h3, h4, h5, h6, span, td, th, li {
+  user-select: text;
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 active:bg-blue-800 transition-all shadow-sm hover:shadow focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2.5 bg-white text-slate-700 font-medium border border-slate-300 rounded-lg hover:bg-slate-50 active:bg-slate-100 transition-all shadow-sm hover:text-slate-900 focus:ring-2 focus:ring-slate-500 focus:ring-offset-2;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2.5 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 active:bg-red-800 transition-all shadow-sm hover:shadow focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05),0_0_2px_0_rgba(0,0,0,0.05)] border border-slate-100/50 p-6 transition-all hover:shadow-[0_4px_12px_-2px_rgba(0,0,0,0.08),0_0_2px_0_rgba(0,0,0,0.05)];
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all;
+  }
+
+  .page-container {
+    @apply max-w-7xl mx-auto p-4 lg:p-8;
+  }
+
+  .heading-1 {
+    @apply text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight;
+  }
+
+  .heading-2 {
+    @apply text-xl font-semibold text-slate-900 tracking-tight;
+  }
+
+  .text-sub {
+    @apply text-slate-500 text-sm;
+  }
+}

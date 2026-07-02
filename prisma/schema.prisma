@@ -1,0 +1,130 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String   @id
+  name        String
+  email       String   @unique
+  role        String   // 'admin' | 'user'
+  permissions Json     // UserPermissions object
+  password    String
+  avatar      String?
+  color       String?  // Cor identificadora do corretor na planta baixa
+}
+
+model Property {
+  id           String   @id
+  name         String
+  address      String
+  city         String
+  manager      String
+  phone        String
+  capacity     Int
+  totalArea    Float
+  createdAt    DateTime @default(now())
+  image        String?
+  storeMarkers Json?    // Array of StoreMarker objects
+  agentMarkers Json?    // Array of AgentMarker objects
+  agentColors  Json?    // Record<string, string>
+}
+
+model FloorPlan {
+  id          String @id // Matches Property ID (1:1)
+  imageBase64 String
+}
+
+model Client {
+  id        String   @id
+  name      String
+  email     String
+  phone     String
+  document  String   // CPF/CNPJ
+  createdAt DateTime @default(now())
+  agentId   String?
+}
+
+model Store {
+  id            String   @id
+  name          String
+  propertyId    String
+  clientId      String?
+  category      String
+  manager       String
+  phone         String
+  area          Float
+  contractStart String?
+  contractEnd   String?
+  rentValue     Float?
+  status        String?  // 'active' | 'inactive'
+  createdAt     DateTime @default(now())
+  image         String?
+  agentId       String?
+}
+
+model Lead {
+  id               String   @id
+  name             String
+  companyName      String?
+  document         String
+  email            String
+  phone            String
+  niche            String
+  targetPropertyId String
+  intendedSize     Float
+  status           String   // 'new' | 'contacted' | 'visit' | 'negotiation' | 'won' | 'lost'
+  interactions     Json?    // Array of Interaction objects
+  agentId          String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Task {
+  id          String   @id
+  userIds     Json     // Array of user IDs
+  title       String
+  description String
+  status      String   // 'pending' | 'in_progress' | 'completed'
+  priority    String   // 'low' | 'medium' | 'high'
+  dueDate     DateTime
+  storeId     String?
+  createdAt   DateTime @default(now())
+}
+
+model CalendarEvent {
+  id          String   @id
+  title       String
+  description String
+  date        DateTime
+  time        String
+  location    String
+  organizer   String
+  userIds     Json     // Array of user IDs
+  createdAt   DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id
+  userId    String
+  title     String
+  message   String
+  type      String   // 'info' | 'success' | 'warning' | 'error'
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id
+  userId    String
+  userName  String
+  action    String
+  entity    String
+  entityId  String
+  details   String
+  timestamp DateTime @default(now())
+}
